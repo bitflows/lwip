@@ -3,7 +3,10 @@ cmake_minimum_required(VERSION 3.7)
 project(lwIP)
 
 set(LWIP_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+#set (LWIP_DEFINITIONS LWIP_DEBUG=1 LWIP_DHCP=1)
+set (LWIP_DEFINITIONS LWIP_DEBUG=1)
 include(src/Filelists.cmake)
+
 
 # Package generation
 set(CPACK_SOURCE_GENERATOR "ZIP")
@@ -18,3 +21,6 @@ include(CPack)
 # Target for package generation
 add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
 add_dependencies(dist lwipdocs)
+
+# Build shared library
+include(${LWIP_DIR}/lib/CMakeLists.txt)

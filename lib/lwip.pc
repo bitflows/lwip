@@ -1,0 +1,10 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include/lwip
+
+Name: liblwip
+Description: LwIP shared library
+Version: 2.1.4
+Libs: -L${libdir} -llwip
+Cflags: -I${includedir}

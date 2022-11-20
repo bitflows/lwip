@@ -97,7 +97,11 @@ if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     set(LWIP_COMPILER_FLAGS /Wall /WX)
 endif()
 
-add_library(lwip ${lwipnoapps_SRCS} ${lwipportunix_SRCS})
+add_library(lwip OBJECT ${lwipnoapps_SRCS} ${lwipportunix_SRCS})
+set_property(TARGET lwip PROPERTY POSITION_INDEPENDENT_CODE 1)
+add_library(lwip_shared SHARED $<TARGET_OBJECTS:lwip>)
+add_library(lwip_static STATIC $<TARGET_OBJECTS:lwip>)
+
 set_target_properties(lwip PROPERTIES VERSION "0.0.0")
 set_target_properties(lwip PROPERTIES SOVERSION "0")
 target_compile_options(lwip PRIVATE ${LWIP_COMPILER_FLAGS})

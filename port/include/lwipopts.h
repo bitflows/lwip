@@ -169,4 +169,7 @@ void sys_unlock_tcpip_core(void);
 #define IP6_DEBUG         LWIP_DBG_OFF
 #endif
 
+/* PPP_SUPPORT must be enabled, to force the builing of sio_read/sio_tryread functions */
+#define PPP_SUPPORT 1
+
 #endif /* UNIX_LWIP_LWIPOPTS_H */

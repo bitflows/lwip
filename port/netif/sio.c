@@ -46,6 +46,7 @@
 #include <string.h>
 #include <sys/signal.h>
 #include <sys/types.h>
+#include <sys/socket.h>
 
 #ifndef LWIP_HAVE_SLIPIF
 #define LWIP_HAVE_SLIPIF 0
@@ -309,6 +310,12 @@ u32_t sio_write(sio_status_t * siostat, u8_t *buf, u32_t size)
 u32_t sio_read(sio_status_t * siostat, u8_t *buf, u32_t size)
 {
     ssize_t rsz = read( siostat->fd, buf, size );
+    return rsz < 0 ? 0 : rsz;
+}
+
+u32_t sio_tryread(sio_status_t * siostat, u8_t *buf, u32_t size)
+{
+    ssize_t rsz = recv( siostat->fd, buf, size, O_NONBLOCK);
     return rsz < 0 ? 0 : rsz;
 }
 
